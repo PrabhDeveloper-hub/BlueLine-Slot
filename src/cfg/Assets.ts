@@ -8,8 +8,12 @@ export const StaticAssets = [
         src: '/assets/img/bg-reel.png'
     },
     {
-        id: 'SpinButton',
-        src: '/assets/img/Spin.png'
+        id: 'SpinOn',
+        src: '/assets/img/spinOn.png'
+    },
+    {
+        id: 'SpinOff',
+        src: '/assets/img/spinOff.png'
     },
     {
         id: 'FortuneWheel',
@@ -32,24 +36,8 @@ export const StaticAssets = [
         src: '/assets/symbols/H4.png'
     },
     {
-        id: 'L1',
-        src: '/assets/symbols/L1.png'
-    },
-    {
-        id: 'L2',
-        src: '/assets/symbols/L2.png'
-    },
-    {
-        id: 'L3',
-        src: '/assets/symbols/L3.png'
-    },
-    {
-        id: 'L4',
-        src: '/assets/symbols/L4.png'
-    },
-    {
         id: 'Win',
         src: '/assets/img/win.png'
-    },
+    }
     
 ]

@@ -2,11 +2,13 @@ import * as PIXI from "pixi.js";
 //@ts-ignore
 import TWEEN from "@tweenjs/tween.js";
 import { PAYLINECONFIG } from "../../cfg/game-variable-constants";
+
 export class WinAnimation {
 
     public winImg: PIXI.Sprite;
     public graphics: PIXI.Graphics;
     public inProgress: Boolean = false;
+    public spinEvent: Event;
 
     constructor(texture: any, x: number, y: number) {
         this.winImg = new PIXI.Sprite(texture);
@@ -15,12 +17,13 @@ export class WinAnimation {
         this.winImg.x = x;
         this.winImg.y = y;
         this.graphics = new PIXI.Graphics();
-
+        this.graphics.zIndex = 1;
+        this.spinEvent = new Event("spinComplete");
     }
 
     playWin(winningSymbols: any) {
         new TWEEN.Tween(this.winImg.scale)
-            .to({ x: 1, y: 1 }, 1000).easing(TWEEN.Easing.Bounce.Out).onComplete(() => {
+            .to({ x: 1, y: 1 }, 1000).easing(TWEEN.Easing.Elastic.Out).onComplete(() => {
                 new TWEEN.Tween(this.winImg.scale)
                     .to({ x: 0, y: 0 }, 1000).onComplete(() => {
                         this.graphics.clear();
@@ -33,8 +36,8 @@ export class WinAnimation {
         this.inProgress = true;
         this.graphics.x = PAYLINECONFIG.x;
         this.graphics.y = PAYLINECONFIG.y;
-        this.graphics.scale.x  = 0.7
-        this.graphics.lineStyle(10, 0x3eff00, 1);
+        this.graphics.scale.x  = 0.7;
+        this.graphics.lineStyle(10, 0x1434A4, 1);
         this.graphics.moveTo(winningSymbols[0].x, winningSymbols[0].y* 0.5);
         console.log(winningSymbols)
         for (var points = 1; points < winningSymbols.length; points++) {
@@ -56,8 +59,9 @@ export class WinAnimation {
                     new TWEEN.Tween(winningSymbols[i].symbol.scale)
                         .to({ x: 1, y: 1 }, 500).onComplete(() => {
                             this.inProgress = false;
-                        }).start()
-                }).start()
+                            document.dispatchEvent(this.spinEvent)
+                        }).repeat(1).start()
+                }).repeat(1).start()
         }
 
     }

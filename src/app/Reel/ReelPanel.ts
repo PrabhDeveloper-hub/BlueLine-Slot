@@ -31,11 +31,13 @@ export class ReelPanel extends PIXI.Container {
         this.reelContainer.y = 20;
         this.reelContainer.scale.x = 0.7
         this.reelContainer.scale.y = 0.5
+        this.reelContainer.zIndex = 2;
         this.Jackpot = new JackpotWheel(loader.resources.FortuneWheel.texture as PIXI.Texture, 1.2 * this.reelContainer.x, 50);
         this.addChild(this.Jackpot);
         this.createView();
         // this.scale.set(1.3);
         this.WinAnim = new WinAnimation(loader.resources.Win.texture as PIXI.Texture, 0, 0);
+        
         this.addChild(this.WinAnim.graphics);
         this.addChild(this.WinAnim.winImg);
 
@@ -60,7 +62,7 @@ export class ReelPanel extends PIXI.Container {
 
     startSpinning() {
         if (this.WinAnim.inProgress === false) {
-            this.win = () => Math.random() >= 0.5;
+            this.win = () => Math.random() >= 0.6;
             //dummy symbol texture which will replace the texture of symbols in reel
             this.tempTexture = Symbols[Math.floor(Math.random() * Symbols.length)];
             //dummy lines created to show the winnings
@@ -105,7 +107,6 @@ export class ReelPanel extends PIXI.Container {
     stopSpinning(reelId: number) {
         if (reelId === 0) {
             this.winBool = this.win();
-            this.winBool = true;
         }
         if (this.winBool) {
             let symbolToChange = this.reels[reelId].reelItemsContainer.children[this.tempPayline[reelId]];
@@ -125,6 +126,8 @@ export class ReelPanel extends PIXI.Container {
                         if (reelId == REELSCONFIG.REELS_COUNT - 1) {
                             if (this.winBool) {
                                 this.WinAnim.createPaylines(this.winningSymbols);
+                            } else {
+                                document.dispatchEvent(this.WinAnim.spinEvent);
                             }
                         }
                     }).start()
