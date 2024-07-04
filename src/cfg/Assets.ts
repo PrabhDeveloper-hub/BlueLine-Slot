@@ -16,6 +16,10 @@ export const StaticAssets = [
         src: '/assets/img/WP_super_spinner_paytable.png'
     },
     {
+        id: 'H1',
+        src: '/assets/symbols/H1.png'
+    },
+    {
         id: 'H2',
         src: '/assets/symbols/H2.png'
     },

@@ -33,10 +33,12 @@ export class WinAnimation {
         this.inProgress = true;
         this.graphics.x = PAYLINECONFIG.x;
         this.graphics.y = PAYLINECONFIG.y;
+        this.graphics.scale.x  = 0.7
         this.graphics.lineStyle(10, 0x3eff00, 1);
-        this.graphics.moveTo(winningSymbols[0].x, winningSymbols[0].y);
+        this.graphics.moveTo(winningSymbols[0].x, winningSymbols[0].y* 0.5);
+        console.log(winningSymbols)
         for (var points = 1; points < winningSymbols.length; points++) {
-            this.graphics.lineTo(winningSymbols[points].x, winningSymbols[points].y);
+            this.graphics.lineTo(winningSymbols[points].x, winningSymbols[points].y * 0.5);
         }
         this.graphics.endFill();
         var self = this;

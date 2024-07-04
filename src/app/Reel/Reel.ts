@@ -24,11 +24,12 @@ export class Reel extends PIXI.Container {
     createReel() {
         for (var i = 0; i < REELSCONFIG.SYMBOL_PER_REEL + 1; i++) {
             const symbol = new PIXI.Sprite(Symbols[Math.floor(Math.random() * Symbols.length)]);
-            symbol.y = -2 * REELSCONFIG.SYMBOL_SIZE + (REELSCONFIG.SYMBOL_SIZE * i);
+            symbol.anchor.set(0.5);
+            symbol.y = -1.5 * REELSCONFIG.SYMBOL_SIZE + (REELSCONFIG.SYMBOL_SIZE * i);
             symbol.scale.x = symbol.scale.y = Math.min(
                 REELSCONFIG.REEL_WIDTH / symbol.width
             );
-            symbol.x = Math.round((REELSCONFIG.SYMBOL_SIZE - symbol.width) / 2);
+            symbol.x = REELSCONFIG.SYMBOL_SIZE - (symbol.width * 0.5);
             this.addChild(symbol);
             this.symbols.push(symbol);
             this.reelItemsContainer.addChild(symbol);

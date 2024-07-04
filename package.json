@@ -1,9 +1,9 @@
 {
   "name": "slot-game",
   "version": "6.0.4",
-  "license": "CC-BY-NC-4.0",
+  "license": "",
   "author": "PRABHJOT SINGH",
-  "description": "A pre installed environnement to work with pixi.js with webpack & typescript",
+  "description": "A slot game",
   "main": "./src/app.ts",
   "scripts": {
     "npm-reset": "rm -rf node_modules && npm cache verify && npm i",

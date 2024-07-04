@@ -20,6 +20,9 @@ document.body.appendChild(app.view);
 const loader = PIXI.Loader.shared;
 export const Symbols: any = [];
 
+window.onresize = function(){
+}
+
 
 //Loading Assets
 StaticAssets.forEach(asset => loader.add(asset.id, asset.src));
@@ -39,6 +42,7 @@ loader.load(() => {
 
     Symbols.push(PIXI.Texture.from(SYMBOL_IDS[texture]));
   }
+  console.log(Symbols)
   const bg = new Background(loader.resources.background.texture as PIXI.Texture, app.renderer.width / 2, app.renderer.height / 2);
   app.stage.addChild(bg.baseBg);
 

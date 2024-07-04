@@ -27,7 +27,10 @@ export class ReelPanel extends PIXI.Container {
         this.x = app.renderer.width / 2;
         this.y = app.renderer.height / 2;
         this.reelContainer = new PIXI.Container();
-        this.reelContainer.x = -290;
+        this.reelContainer.x = -200;
+        this.reelContainer.y = 20;
+        this.reelContainer.scale.x = 0.7
+        this.reelContainer.scale.y = 0.5
         this.Jackpot = new JackpotWheel(loader.resources.FortuneWheel.texture as PIXI.Texture, 1.2 * this.reelContainer.x, 50);
         this.addChild(this.Jackpot);
         this.createView();

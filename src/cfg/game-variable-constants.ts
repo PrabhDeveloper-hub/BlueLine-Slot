@@ -1,5 +1,5 @@
 export const SYMBOL_IDS = [
-    "H2","H3","H4","L1","L2","L3","L4"
+    "H1","H2","H3","H4",
 ];
 export const STAGECONFIG = {
     gameWidth:800,
@@ -8,15 +8,15 @@ export const STAGECONFIG = {
 export const REELSCONFIG = {
     SYMBOL_SIZE:160,
     REELS_COUNT: 3,
-    SYMBOL_PER_REEL:1,
+    SYMBOL_PER_REEL:3,
     REEL_WIDTH:160,
-    REEL_OFFSET:50,
+    REEL_OFFSET:57,
     SPIN_SPEED:40,
-    STOP_TIME:500
+    STOP_TIME:500,
 };
 export const PAYLINECONFIG = {
-    x: -224,
-    y: 50
+    x: -140,
+    y: 0   
 }
 export const PAYLINES = [
     [1,1,1],
@@ -27,5 +27,5 @@ export const PAYLINES = [
 ];
 
 export const DUMMY_WIN =  [
-    [['H2','L1','L1'],['H2','H2','L1'],['L1','L3','H2']]
+    [['H2','H1','H2'],['H2','H2','H3'],['H1','H3','H2']]
 ]
