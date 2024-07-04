@@ -1,7 +1,7 @@
 import * as PIXI from "pixi.js";
 //@ts-ignore
 import TWEEN from "@tweenjs/tween.js";
-import { PAYLINECONFIG } from "../../cfg/game-variable-constants";
+import { PAYLINES } from "../../cfg/game-variable-constants";
 
 export class WinAnimation {
 
@@ -21,35 +21,36 @@ export class WinAnimation {
         this.spinEvent = new Event("spinComplete");
     }
 
-    playWin(winningSymbols: any) {
+    playWin() {
         new TWEEN.Tween(this.winImg.scale)
-            .to({ x: 1, y: 1 }, 1000).easing(TWEEN.Easing.Elastic.Out).onComplete(() => {
+            .to({ x: 1, y: 1 }, 700).easing(TWEEN.Easing.Elastic.Out).onComplete(() => {
                 new TWEEN.Tween(this.winImg.scale)
-                    .to({ x: 0, y: 0 }, 1000).onComplete(() => {
+                    .to({ x: 0, y: 0 }, 500).onComplete(() => {
                         this.graphics.clear();
-                        this.toggleSymbols(winningSymbols);
+                        document.dispatchEvent(this.spinEvent);
                     }).start()
             }).start()
 
     }
-    createPaylines(winningSymbols: any) {
-        this.inProgress = true;
-        this.graphics.x = PAYLINECONFIG.x;
-        this.graphics.y = PAYLINECONFIG.y;
-        this.graphics.scale.x  = 0.7;
-        this.graphics.lineStyle(10, 0x1434A4, 1);
-        this.graphics.moveTo(winningSymbols[0].x, winningSymbols[0].y* 0.5);
-        console.log(winningSymbols)
-        for (var points = 1; points < winningSymbols.length; points++) {
-            this.graphics.lineTo(winningSymbols[points].x, winningSymbols[points].y * 0.5);
-        }
-        this.graphics.endFill();
-        var self = this;
 
-        setTimeout(function () {
-            self.playWin(winningSymbols);
-        }, 1000);
-    }
+    // createPaylines(winningSymbols: any) {
+    //     this.inProgress = true;
+    //     this.graphics.x = PAYLINECONFIG.x;
+    //     this.graphics.y = PAYLINECONFIG.y;
+    //     this.graphics.scale.x = 0.7;
+    //     this.graphics.lineStyle(10, 0x1434A4, 1);
+    //     this.graphics.moveTo(winningSymbols[0].x, winningSymbols[0].y * 0.5);
+    //     console.log(winningSymbols)
+    //     for (var points = 1; points < winningSymbols.length; points++) {
+    //         this.graphics.lineTo(winningSymbols[points].x, winningSymbols[points].y * 0.5);
+    //     }
+    //     this.graphics.endFill();
+    //     // var self = this;
+
+    //     // setTimeout(function () {
+    //     //     self.playWin();
+    //     // }, 1000);
+    // }
 
 
     toggleSymbols(winningSymbols: any) {
@@ -59,11 +60,42 @@ export class WinAnimation {
                     new TWEEN.Tween(winningSymbols[i].symbol.scale)
                         .to({ x: 1, y: 1 }, 500).onComplete(() => {
                             this.inProgress = false;
-                            document.dispatchEvent(this.spinEvent)
-                        }).repeat(1).start()
-                }).repeat(1).start()
+                            // document.dispatchEvent(this.spinEvent);
+                        }).start()
+                }).start()
         }
 
     }
 
+    checkWinline(allReels: any) {
+        let symbols: any[] = [];
+        let allWinlines: any[] = [];
+        for (let i = 0; i < allReels.length; i++) {
+            let reelContainer = allReels[i].children[0];
+            symbols.push(reelContainer.children);
+        }
+
+        for (let k = 0; k < PAYLINES.length; k++) {
+            let winSymbols: any[] = [];
+            let symbId_1 = symbols[0][PAYLINES[k][0]];
+            let symbId_2 = symbols[1][PAYLINES[k][1]];
+            let symbId_3 = symbols[2][PAYLINES[k][2]];
+            if (symbId_1.texture.textureCacheIds[0] === symbId_2.texture.textureCacheIds[0]
+                && symbId_2.texture.textureCacheIds[0] === symbId_3.texture.textureCacheIds[0]
+                && symbId_1.texture.textureCacheIds[0] === symbId_3.texture.textureCacheIds[0]) {
+                winSymbols.push(symbId_1, symbId_2, symbId_3);
+                allWinlines.push(winSymbols);
+            }
+        }
+        if (allWinlines.length) {
+            this.animateWinLines(allWinlines)
+            this.playWin();
+        } else {
+            document.dispatchEvent(this.spinEvent);
+        }
+    }
+
+    animateWinLines(allWinlines: any) {
+        console.log(allWinlines)
+    }
 }
