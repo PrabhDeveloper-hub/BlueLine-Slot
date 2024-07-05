@@ -20,6 +20,7 @@
     "seed"
   ],
   "dependencies": {
+    "@pixi/sound": "^4.4.1",
     "@tweenjs/tween.js": "^20.0.3",
     "pixi-particles": "^4.3.1",
     "pixi.js": "6.0.4"

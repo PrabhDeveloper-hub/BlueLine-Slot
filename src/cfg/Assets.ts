@@ -45,3 +45,10 @@ export const StaticAssets = [
     }
     
 ]
+
+export const Sounds = [
+    {
+        id: 'BgMusic',
+        src: '/assets/sounds/base-bg.mp3'
+    }
+]
