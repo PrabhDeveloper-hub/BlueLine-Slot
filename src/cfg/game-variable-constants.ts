@@ -14,10 +14,7 @@ export const REELSCONFIG = {
     SPIN_SPEED: 70,
     STOP_TIME: 700,
 };
-export const PAYLINECONFIG = {
-    x: -140,
-    y: 0
-}
+
 export const PAYLINES = [
     [1, 1, 1],
     [1, 1, 2],
