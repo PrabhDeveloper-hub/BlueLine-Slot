@@ -38,6 +38,10 @@ export const StaticAssets = [
     {
         id: 'Win',
         src: '/assets/img/win.png'
+    },
+    {
+        id: 'Coin',
+        src: '/assets/img/coin.png'
     }
     
 ]

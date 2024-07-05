@@ -6,9 +6,9 @@ export const STAGECONFIG = {
     gameHeight: 600
 }
 export const REELSCONFIG = {
-    REELCONTAINER :{
-        x:-180,
-        y:20
+    REELCONTAINER: {
+        x: -180,
+        y: 20
     },
     SYMBOL_SIZE: 160,
     REELS_COUNT: 3,
@@ -41,7 +41,47 @@ export const PAYLINES = [
     [3, 3, 3],
     [3, 3, 2]
 ];
-
+export const PARTICLE_PROPS ={
+	"alpha": {
+		"start": 1,
+		"end": 0.22
+	},
+	"scale": {
+		"start": 0.25,
+		"end": 0.75,
+		"minimumScaleMultiplier": 0.5
+	},
+	"color": {
+		"start": "ffffff",
+		"end": "ffffff"
+	},
+	"speed": {
+		"start": 200,
+		"end": 50
+	},
+	"startRotation": {
+		"min": 0,
+		"max": 360
+	},
+	"rotationSpeed": {
+		"min": 0,
+		"max": 10
+	},
+	"lifetime": {
+		"min": 4,
+		"max": 10
+	},
+	"blendMode": "normal",
+	"frequency": 0.016,
+	"emitterLifetime": 0,
+	"maxParticles": 500,
+	"pos": {
+		"x": 400,
+		"y": 0
+	},
+	"addAtBack": false,
+	"spawnType": "point"
+}
 export const DUMMY_WIN = [
     [['H2', 'H1', 'H2'], ['H2', 'H2', 'H3'], ['H1', 'H3', 'H2']]
 ]

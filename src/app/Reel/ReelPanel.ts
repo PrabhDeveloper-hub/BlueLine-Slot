@@ -1,11 +1,12 @@
 import * as PIXI from 'pixi.js';
 import { ReelBg } from './ReelBg';
 import { Reel } from './Reel';
-import { REELSCONFIG } from '../../cfg/game-variable-constants';
+import { PARTICLE_PROPS, REELSCONFIG } from '../../cfg/game-variable-constants';
 import { WinAnimation } from '../Win/winAnimation';
 //@ts-ignore
 import TWEEN from "@tweenjs/tween.js";
 import { JackpotWheel } from '../jackpot-wheel';
+import * as particles from 'pixi-particles'
 
 export class ReelPanel extends PIXI.Container {
     private loader: PIXI.Loader;
@@ -14,10 +15,12 @@ export class ReelPanel extends PIXI.Container {
     public reels: Array<Reel> = [];
     public WinAnim: WinAnimation;
     public Jackpot: JackpotWheel;
+    emitter: any;
     win: any;
     tempTexture: any;
     tempPayline: any;
     winningSymbols: any = [];
+    elapsed = Date.now();
     winBool: boolean = false;
     constructor(loader: PIXI.Loader, app: any) {
         super();
@@ -34,9 +37,13 @@ export class ReelPanel extends PIXI.Container {
         this.addChild(this.Jackpot);
         this.createView();
         // this.scale.set(1.3);
+        
+        document.addEventListener("showParticles", () => {
+            console.log("PARTICLES")
+            this.createParticles();
+        });
         this.WinAnim = new WinAnimation(loader.resources.Win.texture as PIXI.Texture, 0, 0);
         this.addChild(this.WinAnim.winImg);
-
         document.addEventListener("StartSpin", () => {
             this.startSpinning();
         });
@@ -58,7 +65,7 @@ export class ReelPanel extends PIXI.Container {
 
     startSpinning() {
         if (this.WinAnim.inProgress === false) {
-           
+
             if ((this.reels[REELSCONFIG.REELS_COUNT - 1].isSpinning == false)) {
                 var self = this;
                 for (let i = 0; i < this.reels.length; i++) {
@@ -78,7 +85,18 @@ export class ReelPanel extends PIXI.Container {
         this.stageApp.ticker.add((delta: any) => {
             TWEEN.update();
             if (this.Jackpot) {
-                this.Jackpot.rotation += 0.01 * delta;
+                this.Jackpot.rotation += 0.007 * delta;
+            }
+            if (this.emitter && this.WinAnim.winImageOnScreen) {
+                var now = Date.now();
+                // The emitter requires the elapsed
+                // number of seconds since the last update
+                this.emitter.update((now - this.elapsed) * 0.0009);
+                this.elapsed = now;
+                this.emitter.emit = true;
+            } else {
+                if(this.emitter)
+                this.emitter.destroy();
             }
             for (let i = 0; i < this.reels.length; i++) {
                 if (this.reels[i].isSpinning) {
@@ -96,7 +114,7 @@ export class ReelPanel extends PIXI.Container {
     }
 
     stopSpinning(reelId: number) {
-        
+
         new TWEEN.Tween(this.reels[reelId].reelItemsContainer)
             .to({ y: "+50" }, 200).easing(TWEEN.Easing.Quadratic.Out).onComplete(() => {
                 new TWEEN.Tween(this.reels[reelId].reelItemsContainer)
@@ -111,5 +129,15 @@ export class ReelPanel extends PIXI.Container {
 
     }
 
-    
+    createParticles() {
+        console.log("CREATE PARTICLES")
+        this.emitter = new particles.Emitter(
+            this.reelContainer,
+            [this.loader.resources.Coin.texture],
+            PARTICLE_PROPS
+        );
+       
+        this.emitter.emit = true;
+        
+    }
 }

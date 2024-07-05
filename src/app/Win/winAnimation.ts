@@ -1,14 +1,16 @@
 import * as PIXI from "pixi.js";
 //@ts-ignore
 import TWEEN from "@tweenjs/tween.js";
-import {  PAYLINES, WINCONFIG } from "../../cfg/game-variable-constants";
+import { PAYLINES, WINCONFIG } from "../../cfg/game-variable-constants";
 
 export class WinAnimation {
 
     public winImg: PIXI.Sprite;
     public inProgress: Boolean = false;
     public spinEvent: Event;
+    public showParticles: Event;
     public totalWinLines: Number = 0;
+    public winImageOnScreen: Boolean = false;
     constructor(texture: any, x: number, y: number) {
         this.winImg = new PIXI.Sprite(texture);
         this.winImg.anchor.set(0.5);
@@ -16,14 +18,19 @@ export class WinAnimation {
         this.winImg.x = x;
         this.winImg.y = y;
         this.spinEvent = new Event("spinComplete");
+        this.showParticles = new Event("showParticles");
     }
 
     playWin() {
+        document.dispatchEvent(this.showParticles);
+        this.winImageOnScreen = true;
         this.inProgress = true;
         new TWEEN.Tween(this.winImg.scale)
-            .to({ x: 1, y: 1 }, WINCONFIG.ANIMATION_TIME/2).easing(TWEEN.Easing.Elastic.Out).onComplete(() => {
+            .to({ x: 1, y: 1 }, WINCONFIG.ANIMATION_TIME / 2).easing(TWEEN.Easing.Elastic.Out).onComplete(() => {
                 new TWEEN.Tween(this.winImg.scale)
-                    .to({ x: 0, y: 0 }, WINCONFIG.ANIMATION_TIME/2).onComplete(() => {
+                    .to({ x: 0, y: 0 }, WINCONFIG.ANIMATION_TIME / 2).onComplete(() => {
+                        this.winImageOnScreen = false;
+
                     }).start()
             }).start()
 
@@ -32,9 +39,9 @@ export class WinAnimation {
     toggleSymbols(winningSymbols: any) {
         for (let i = 0; i < winningSymbols.length; i++) {
             new TWEEN.Tween(winningSymbols[i].scale)
-                .to({ x: 0.1, y: 0.1, }, WINCONFIG.ANIMATION_TIME/4).onComplete(() => {
+                .to({ x: 0.1, y: 0.1, }, WINCONFIG.ANIMATION_TIME / 4).onComplete(() => {
                     new TWEEN.Tween(winningSymbols[i].scale)
-                        .to({ x: 1, y: 1 }, WINCONFIG.ANIMATION_TIME/4).onComplete(() => {
+                        .to({ x: 1, y: 1 }, WINCONFIG.ANIMATION_TIME / 4).onComplete(() => {
                         }).start()
                 }).start()
         }
@@ -77,10 +84,10 @@ export class WinAnimation {
                     setTimeout(() => {
                         this.inProgress = false;
                         document.dispatchEvent(this.spinEvent);
-                    }, WINCONFIG.ANIMATION_TIME/2);
+                    }, WINCONFIG.ANIMATION_TIME / 2);
                 }
                 this.toggleSymbols(allWinlines[winline]);
-            }, (winline + 2) * WINCONFIG.ANIMATION_TIME/2);
+            }, (winline + 2) * WINCONFIG.ANIMATION_TIME / 2);
         }
     }
 }
