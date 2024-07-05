@@ -31,7 +31,7 @@ export class ReelPanel extends PIXI.Container {
         this.reelContainer.scale.x = 0.5
         this.reelContainer.scale.y = 0.5
         this.reelContainer.zIndex = 2;
-        this.Jackpot = new JackpotWheel(loader.resources.FortuneWheel.texture as PIXI.Texture, 1.2 * this.reelContainer.x, 50);
+        this.Jackpot = new JackpotWheel(loader.resources.FortuneWheel.texture as PIXI.Texture, 1.7 * this.reelContainer.x, 50);
         this.addChild(this.Jackpot);
         this.createView();
         // this.scale.set(1.3);
@@ -81,7 +81,7 @@ export class ReelPanel extends PIXI.Container {
         this.stageApp.ticker.add((delta: any) => {
             TWEEN.update();
             if (this.Jackpot) {
-                this.Jackpot.rotation += 0.003 * delta;
+                this.Jackpot.rotation += 0.01 * delta;
             }
             for (let i = 0; i < this.reels.length; i++) {
                 if (this.reels[i].isSpinning) {

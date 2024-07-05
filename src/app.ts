@@ -49,7 +49,7 @@ loader.load(() => {
   const reelView = new ReelPanel(loader, app);
   app.stage.addChild(reelView);
 
-  const spinBtn = new SpinButton(loader.resources.SpinOn.texture as PIXI.Texture, app.renderer.width / 2+ reelView.width/2.75, app.renderer.height / 2 + reelView.height/3.8  ,loader)
+  const spinBtn = new SpinButton(loader.resources.SpinOn.texture as PIXI.Texture, app.renderer.width / 2+ reelView.width/2.9, app.renderer.height / 2 + reelView.height/3.8  ,loader)
   app.stage.addChild(spinBtn.StartButton);
 
 });

@@ -18,7 +18,7 @@ export class SpinButton {
         var self = this;
         this.StartButton.interactive = true;
         this.StartButton.on('pointerover', function(){
-            self.StartButton.scale.set(0.51);
+            self.StartButton.scale.set(0.515);
         })
         this.StartButton.on('pointerout', function(){
             self.StartButton.scale.set(0.5);
