@@ -6,6 +6,10 @@ export const STAGECONFIG = {
     gameHeight: 600
 }
 export const REELSCONFIG = {
+    REELCONTAINER :{
+        x:-180,
+        y:20
+    },
     SYMBOL_SIZE: 160,
     REELS_COUNT: 3,
     SYMBOL_PER_REEL: 3,
@@ -15,6 +19,9 @@ export const REELSCONFIG = {
     STOP_TIME: 700,
 };
 
+export const WINCONFIG = {
+    ANIMATION_TIME: 1200
+}
 export const PAYLINES = [
     [1, 1, 1],
     [1, 1, 2],

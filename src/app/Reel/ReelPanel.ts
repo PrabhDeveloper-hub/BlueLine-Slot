@@ -26,18 +26,15 @@ export class ReelPanel extends PIXI.Container {
         this.x = app.renderer.width / 2;
         this.y = app.renderer.height / 2;
         this.reelContainer = new PIXI.Container();
-        this.reelContainer.x = -180;
-        this.reelContainer.y = 20;
+        this.reelContainer.x = REELSCONFIG.REELCONTAINER.x;
+        this.reelContainer.y = REELSCONFIG.REELCONTAINER.y;
         this.reelContainer.scale.x = 0.5
         this.reelContainer.scale.y = 0.5
-        this.reelContainer.zIndex = 2;
         this.Jackpot = new JackpotWheel(loader.resources.FortuneWheel.texture as PIXI.Texture, 1.7 * this.reelContainer.x, 50);
         this.addChild(this.Jackpot);
         this.createView();
         // this.scale.set(1.3);
         this.WinAnim = new WinAnimation(loader.resources.Win.texture as PIXI.Texture, 0, 0);
-        
-        this.addChild(this.WinAnim.graphics);
         this.addChild(this.WinAnim.winImg);
 
         document.addEventListener("StartSpin", () => {
