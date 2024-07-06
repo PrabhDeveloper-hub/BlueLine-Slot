@@ -22,6 +22,7 @@ export class WinAnimation {
         this.showParticles = new Event("showParticles");
     }
 
+    //Showing Win image animation
     playWin() {
         document.dispatchEvent(this.showParticles);
         this.winImageOnScreen = true;
@@ -37,6 +38,7 @@ export class WinAnimation {
 
     }
 
+    //Showing winning symbols animation
     toggleSymbols(winningSymbols: any) {
         for (let i = 0; i < winningSymbols.length; i++) {
             sound.play("SymbolWin");
@@ -50,6 +52,7 @@ export class WinAnimation {
 
     }
 
+    //Checking all the winlines and showing the wins accordingly
     checkWinline(allReels: any) {
         let symbols: any[] = [];
         let allWinlines: any[] = [];
@@ -81,6 +84,7 @@ export class WinAnimation {
         }
     }
 
+    //Calling the symbol animation according to the total number of winlines
     animateWinLines(allWinlines: any) {
         for (let winline = 0; winline < allWinlines.length; winline++) {
             setTimeout(() => {

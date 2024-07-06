@@ -21,6 +21,7 @@ export class Reel extends PIXI.Container {
         this.createReel();
     }
 
+    //Creating Reel and their symbols
     createReel() {
         for (var i = 0; i < REELSCONFIG.SYMBOL_PER_REEL + 1; i++) {
             const symbol = new PIXI.Sprite(Symbols[Math.floor(Math.random() * Symbols.length)]);
@@ -38,6 +39,7 @@ export class Reel extends PIXI.Container {
         this.createMask();
     }
 
+    //Replacing symbols while reels are spinning
     replaceSymbols() {
         const temp = this.symbols.pop();
         if (temp) {
@@ -47,6 +49,8 @@ export class Reel extends PIXI.Container {
         //@ts-ignore
         this.reelItemsContainer.children[0].texture = this.symbols[0].texture;
     }
+
+    //Creating Mask for every Reel
     createMask() {
         this.reelMask.beginFill(0, 1);
         this.reelMask.drawRect(

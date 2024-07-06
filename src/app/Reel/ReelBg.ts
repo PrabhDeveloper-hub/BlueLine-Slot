@@ -1,4 +1,6 @@
 import * as PIXI from "pixi.js";
+
+//Creating Reel Background Image
 export class ReelBg {
 
     public baseReel: PIXI.Sprite;

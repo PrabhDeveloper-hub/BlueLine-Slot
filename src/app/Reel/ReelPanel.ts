@@ -51,6 +51,7 @@ export class ReelPanel extends PIXI.Container {
         });
     }
 
+    //Creating the view by adding the Reel background and total number of reels
     createView() {
         const reelBackground = new ReelBg(this.loader.resources.reelBackground.texture as PIXI.Texture, 0, 0);
         this.addChild(reelBackground.baseReel);
@@ -65,6 +66,7 @@ export class ReelPanel extends PIXI.Container {
         this.update();
     }
 
+    //Spinning the Reels 
     startSpinning() {
         if (this.WinAnim.inProgress === false) {
             sound.play("ReelSpin");
@@ -83,6 +85,7 @@ export class ReelPanel extends PIXI.Container {
 
     }
 
+    //Updating the Wheel rotation , Particle Emitter and Calling the replace symbol method when reels are spinning
     update() {
         this.stageApp.ticker.add((delta: any) => {
             TWEEN.update();
@@ -115,12 +118,13 @@ export class ReelPanel extends PIXI.Container {
 
     }
 
+    //Stopping the spinning reels 
     stopSpinning(reelId: number) {
         sound.play("ReelStop");
         new TWEEN.Tween(this.reels[reelId].reelItemsContainer)
-            .to({ y: "+50" }, 200).easing(TWEEN.Easing.Quadratic.Out).onComplete(() => {
+            .to({ y: "+80" }, 200).easing(TWEEN.Easing.Quadratic.Out).onComplete(() => {
                 new TWEEN.Tween(this.reels[reelId].reelItemsContainer)
-                    .to({ y: "-50" }, 200).easing(TWEEN.Easing.Quadratic.Out).onComplete(() => {
+                    .to({ y: "-80" }, 200).easing(TWEEN.Easing.Quadratic.Out).onComplete(() => {
                         if (reelId == REELSCONFIG.REELS_COUNT - 1) {
                             this.WinAnim.checkWinline(this.reels)
                             // document.dispatchEvent(this.WinAnim.spinEvent);
@@ -131,6 +135,7 @@ export class ReelPanel extends PIXI.Container {
 
     }
 
+    //Creating coin particles to display on win
     createParticles() {
         console.log("CREATE PARTICLES")
         this.emitter = new particles.Emitter(

@@ -1,5 +1,7 @@
 import * as PIXI from "pixi.js";
 import { sound } from '@pixi/sound';
+
+//Creating Spin Button
 export class SpinButton {
 
     public StartButton:PIXI.Sprite;
@@ -15,6 +17,7 @@ export class SpinButton {
         this.addEvents();
     }
 
+    //Handling Spin button Events
     addEvents(){
         var self = this;
         this.StartButton.interactive = true;

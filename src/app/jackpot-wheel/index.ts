@@ -1,6 +1,7 @@
 
 import * as PIXI from 'pixi.js';
 
+//Adding a dummy rotating wheel
 export class JackpotWheel extends PIXI.Container {
 
     public wheel: PIXI.Sprite;
