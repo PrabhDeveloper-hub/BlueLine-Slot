@@ -1,4 +1,5 @@
 import * as PIXI from "pixi.js";
+import { sound } from '@pixi/sound';
 export class SpinButton {
 
     public StartButton:PIXI.Sprite;
@@ -25,6 +26,7 @@ export class SpinButton {
         })
         this.StartButton.on('pointerup', function(){
             document.dispatchEvent(new Event("StartSpin"));
+            sound.play("Spin");
             self.StartButton.interactive = false;
             self.StartButton.texture = self.loader.resources.SpinOff.texture as PIXI.Texture;
         })

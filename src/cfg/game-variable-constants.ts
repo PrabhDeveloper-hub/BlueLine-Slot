@@ -71,7 +71,7 @@ export const PARTICLE_PROPS ={
 		"min": 4,
 		"max": 10
 	},
-	"blendMode": "normal",
+	"blendMode": "screen",
 	"frequency": 0.016,
 	"emitterLifetime": 0,
 	"maxParticles": 500,

@@ -6,7 +6,9 @@ import { WinAnimation } from '../Win/winAnimation';
 //@ts-ignore
 import TWEEN from "@tweenjs/tween.js";
 import { JackpotWheel } from '../jackpot-wheel';
-import * as particles from 'pixi-particles'
+import * as particles from 'pixi-particles';
+import { sound } from '@pixi/sound';
+
 
 export class ReelPanel extends PIXI.Container {
     private loader: PIXI.Loader;
@@ -65,7 +67,7 @@ export class ReelPanel extends PIXI.Container {
 
     startSpinning() {
         if (this.WinAnim.inProgress === false) {
-
+            sound.play("ReelSpin");
             if ((this.reels[REELSCONFIG.REELS_COUNT - 1].isSpinning == false)) {
                 var self = this;
                 for (let i = 0; i < this.reels.length; i++) {
@@ -114,7 +116,7 @@ export class ReelPanel extends PIXI.Container {
     }
 
     stopSpinning(reelId: number) {
-
+        sound.play("ReelStop");
         new TWEEN.Tween(this.reels[reelId].reelItemsContainer)
             .to({ y: "+50" }, 200).easing(TWEEN.Easing.Quadratic.Out).onComplete(() => {
                 new TWEEN.Tween(this.reels[reelId].reelItemsContainer)

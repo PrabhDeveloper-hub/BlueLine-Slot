@@ -49,6 +49,26 @@ export const StaticAssets = [
 export const Sounds = [
     {
         id: 'BgMusic',
-        src: '/assets/sounds/base-bg.mp3'
+        src: '/assets/sounds/base-bg.wav'
+    },
+    {
+        id: 'Spin',
+        src: '/assets/sounds/spin.wav'
+    },
+    {
+        id: 'ReelStop',
+        src: '/assets/sounds/reel_stop.wav'
+    },
+    {
+        id: 'ReelSpin',
+        src: '/assets/sounds/reel_spin.wav'
+    },
+    {
+        id: 'WinSound',
+        src: '/assets/sounds/win.wav'
+    },
+    {
+        id: 'SymbolWin',
+        src: '/assets/sounds/SymbolWin.wav'
     }
 ]

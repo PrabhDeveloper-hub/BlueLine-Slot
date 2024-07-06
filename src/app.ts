@@ -12,7 +12,8 @@ export const app = new PIXI.Application({
   height: window.innerHeight,
   sharedTicker: true,
   sharedLoader: true,
-  resizeTo: window
+  resizeTo: window,
+  resolution:1
 });
 document.body.style.padding = '0px';
 document.body.style.margin = '0px';
@@ -41,7 +42,7 @@ loader.onComplete.add(() => {
 loader.load(() => {
   //Adding Background Music
   sound.play('BgMusic',{loop:true});
-  sound.volume('BgMusic',0.2);
+  sound.volume('BgMusic');
   
   // Create different slot symbols.
   for (var texture = 0; texture < SYMBOL_IDS.length; texture++) {

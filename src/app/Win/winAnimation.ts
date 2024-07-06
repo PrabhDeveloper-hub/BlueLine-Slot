@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 //@ts-ignore
 import TWEEN from "@tweenjs/tween.js";
 import { PAYLINES, WINCONFIG } from "../../cfg/game-variable-constants";
+import { sound } from '@pixi/sound';
 
 export class WinAnimation {
 
@@ -26,7 +27,7 @@ export class WinAnimation {
         this.winImageOnScreen = true;
         this.inProgress = true;
         new TWEEN.Tween(this.winImg.scale)
-            .to({ x: 1, y: 1 }, WINCONFIG.ANIMATION_TIME / 2).easing(TWEEN.Easing.Elastic.Out).onComplete(() => {
+            .to({ x: 1, y: 1 , }, WINCONFIG.ANIMATION_TIME / 2).easing(TWEEN.Easing.Elastic.Out).onComplete(() => {
                 new TWEEN.Tween(this.winImg.scale)
                     .to({ x: 0, y: 0 }, WINCONFIG.ANIMATION_TIME / 2).onComplete(() => {
                         this.winImageOnScreen = false;
@@ -38,12 +39,13 @@ export class WinAnimation {
 
     toggleSymbols(winningSymbols: any) {
         for (let i = 0; i < winningSymbols.length; i++) {
-            new TWEEN.Tween(winningSymbols[i].scale)
-                .to({ x: 0.1, y: 0.1, }, WINCONFIG.ANIMATION_TIME / 4).onComplete(() => {
-                    new TWEEN.Tween(winningSymbols[i].scale)
-                        .to({ x: 1, y: 1 }, WINCONFIG.ANIMATION_TIME / 4).onComplete(() => {
+            sound.play("SymbolWin");
+            new TWEEN.Tween(winningSymbols[i])
+                .to({scale:{ x: 0.1, y: 0.1} , alpha : 0.5, }, WINCONFIG.ANIMATION_TIME / 4).onComplete(() => {
+                    new TWEEN.Tween(winningSymbols[i])
+                        .to({ scale:{ x: 1, y: 1},alpha: 1 }, WINCONFIG.ANIMATION_TIME / 4).onComplete(() => {
                         }).start()
-                }).start()
+                }).start();
         }
 
     }
@@ -69,6 +71,8 @@ export class WinAnimation {
             }
         }
         if (allWinlines.length) {
+            sound.play("WinSound");
+            sound.volume('WinSound',0.6);
             this.totalWinLines = allWinlines.length;
             this.animateWinLines(allWinlines)
             this.playWin();
@@ -82,6 +86,7 @@ export class WinAnimation {
             setTimeout(() => {
                 if (this.totalWinLines == (winline + 1)) {
                     setTimeout(() => {
+                        sound.stop("WinSound");
                         this.inProgress = false;
                         document.dispatchEvent(this.spinEvent);
                     }, WINCONFIG.ANIMATION_TIME / 2);
